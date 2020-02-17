@@ -1,9 +1,34 @@
 package app.models;
 
-public class Player extends Person {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-    public Player(final String name) {
-        super(name == "" ? "Unknown Player" : name, 2);
+final class RobotNames {
+
+    public static String GetRandomName() throws IOException {
+        final List<String> names = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("names.csv"))) {
+            String name;
+            while ((name = br.readLine()) != null) {
+                names.add(name);
+            }
+        }
+
+        final Random rand = new Random();
+        return names.get(rand.nextInt(names.size()));
+    }
+
+}
+
+public class Robot extends Person {
+
+    public Robot() throws IOException {
+        super(RobotNames.GetRandomName(), 2);
     }
 
     public void StartTurn() {
