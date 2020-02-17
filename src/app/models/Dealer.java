@@ -1,9 +1,8 @@
 package app.models;
 
 public class Dealer extends Person {
-
     public Dealer() {
-        super(1);
+        super("Dealer", 1);
     }
 
     public void StartTurn(final int target_value) {

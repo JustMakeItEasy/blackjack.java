@@ -1,6 +1,7 @@
 package app;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import app.models.*;
@@ -20,17 +21,24 @@ public class App {
 
         for (int i = 0; i < number_of_players; i++) {
             String player_name = "";
-            while (player_name == "") {
-                System.out.print("Player " + (i + 1) + " what is your name? ");
-                player_name = System.console().readLine().toString();
+            while (!player_name.matches("(.)+")) {
+                System.out.format("Player %d what is your name? ", (i + 1));
+                player_name = System.console().readLine().toString().toLowerCase();
             }
+            String name_split = player_name.substring(0, 1);
+            player_name = player_name.replaceFirst(name_split, name_split.toUpperCase());
             Game.Players.add(new Player(player_name));
         }
+
+        Game.Dealer = new Dealer();
+
+        Game.DisplayHands();
 
         for (final Player player : Game.Players) {
             while (player.State == PlayerState.Playing) {
                 player.StartTurn();
             }
+            Game.DisplayHands();
             System.out.println();
         }
 
