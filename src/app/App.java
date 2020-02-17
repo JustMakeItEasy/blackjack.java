@@ -8,11 +8,23 @@ import app.models.*;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        // TODO: Implement prompt for player names
-        final String[] names = { "Simon", "Ashley" };
-        for (final String name : names) {
-            Game.Players.add(new Player(name));
+        int number_of_players = 0;
+        while (number_of_players == 0) {
+            System.out.print("How many players? ");
+            try {
+                number_of_players = Integer.parseInt(System.console().readLine());
+            } catch (Exception ex) {
+                number_of_players = 0;
+            }
+        }
 
+        for (int i = 0; i < number_of_players; i++) {
+            String player_name = "";
+            while (player_name == "") {
+                System.out.print("Player " + (i + 1) + " what is your name? ");
+                player_name = System.console().readLine().toString();
+            }
+            Game.Players.add(new Player(player_name));
         }
 
         for (final Player player : Game.Players) {
