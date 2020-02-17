@@ -3,7 +3,7 @@ package app.models;
 public class Player extends Person {
 
     public Player(final String name) {
-        super(name == "" ? "Unknown Player" : name, 2);
+        super(name == "" ? "Unknown Player" : name, 2, Type.Player);
     }
 
     public void StartTurn() {

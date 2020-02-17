@@ -5,7 +5,8 @@ import java.util.List;
 
 public final class Game {
     public static Deck Deck = new Deck();
-    public static List<Player> Players = new ArrayList<Player>();
+    public static Player Player = null;
+    public static List<Robot> Bots = new ArrayList<Robot>();
     public static Dealer Dealer = null;
     public static int NumberOfCardsToStart = 2;
 
@@ -17,8 +18,10 @@ public final class Game {
         System.out.format("| %-12s | %-12s | %-12s |\n", "Name", "Cards", "Score");
         System.out.println("+--------------+--------------+--------------+");
 
-        for (final Player player : Players) {
-            player.PrintInfo();
+        Player.PrintInfo();
+
+        for (final Robot bot : Bots) {
+            bot.PrintInfo();
         }
 
         Dealer.PrintInfo();

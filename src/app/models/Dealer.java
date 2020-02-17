@@ -2,7 +2,7 @@ package app.models;
 
 public class Dealer extends Person {
     public Dealer() {
-        super("Dealer", 1);
+        super("Dealer", 1, Type.Dealer);
     }
 
     public void StartTurn(final int target_value) {
