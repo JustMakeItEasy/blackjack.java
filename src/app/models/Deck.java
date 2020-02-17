@@ -1,8 +1,11 @@
 package app.models;
 
+import java.util.List;
 import java.util.Random;
 
 public class Deck extends CardCollection {
+
+    List<Card> InitialDeck = null;
 
     public Deck() {
         for (final String card_name : new String[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q",

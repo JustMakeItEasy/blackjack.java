@@ -32,15 +32,36 @@ public class Robot extends Person {
     }
 
     public void StartTurn() {
+
         Character choice = null;
         while (choice == null) {
 
-            System.out.print(Name + ", you're on " + Hand.Score() + " " + "Please choose an option [S]tand or [H]it: ");
-            final String input = System.console().readLine().toUpperCase();
-            if (input.length() == 0) {
-                continue;
+            int remainder = 21 - Hand.Score();
+            if (remainder > 10) {
+                choice = 'H';
+
+            } else {
+
+                // Add all visible cards to a 'known taken pile' and working out the percentage
+                // chance of going bust. This is similiar to counting cards in poker.
+                List<Card> known_taken_cards = new ArrayList<Card>();
+                known_taken_cards.addAll(this.Hand.Cards);
+                known_taken_cards.addAll(Game.Dealer.Hand.VisibleCards());
+                for (Player player : Game.Players) {
+                    known_taken_cards.addAll(player.Hand.VisibleCards());
+                }
+
+                Deck _deck = new Deck();
+                for (Card card : known_taken_cards) {
+                    _deck.Cards.remove(card);
+                }
+
+                long potential_cards = _deck.Cards.stream().filter(card -> card.Value <= remainder).count();
+
+                float probabilty = potential_cards / _deck.Cards.size();
+
+                choice = probabilty > 0.60 ? 'H' : 'S';
             }
-            choice = input.charAt(0);
 
             switch (choice) {
             case 'H':

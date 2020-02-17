@@ -10,7 +10,7 @@ public class Player extends Person {
         Character choice = null;
         while (choice == null) {
 
-            System.out.print(Name + ", you're on " + Hand.Score() + " " + "Please choose an option [S]tand or [H]it: ");
+            System.out.format("%s, you're on %d. Please choose an option [S]tand or [H]it: ", Name, Hand.Score());
             final String input = System.console().readLine().toUpperCase();
             if (input.length() == 0) {
                 continue;
